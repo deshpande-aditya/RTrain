@@ -4,9 +4,9 @@
 num =  21 #as.integer(readline(prompt=" Enter a Number : "))
                  
 if((num %% 2 ) == 0){
-  print(paste(num, "is Even"))
+  print(paste(num, " - number is Even"))
 } else {
-  print(paste(num, "is odd"))
+  print(paste(num, " - number is odd"))
 }
 
 
