@@ -1,7 +1,7 @@
 #Program to check if number is even or odd
 
-
-num =  21 #as.integer(readline(prompt=" Enter a Number : "))
+num = as.integer(readline(prompt="Enter Number:"))
+#num =  21 #as.integer(readline(prompt=" Enter a Number : "))
                  
 if((num %% 2 ) == 0){
   print(paste(num, " - number is Even"))
