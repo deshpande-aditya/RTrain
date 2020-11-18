@@ -125,3 +125,39 @@ ggplot( data = demo) +
 ggplot( data = diamonds) +
   stat_summary( mapping = aes( x = cut, y = depth), fun.ymin = min, fun.ymax = max, fun.y = median )
 
+ggplot( data = diamonds) +
+  geom_bar( mapping = aes( x = cut, color = cut))
+ggplot( data = diamonds) +
+  geom_bar( mapping = aes( x = cut, fill = cut))
+ggplot( data = diamonds) +
+  geom_bar( mapping = aes( x = cut, fill = clarity))
+
+#stacking - concept for bar charts.
+ggplot( data = diamonds, mapping = aes( x = cut, fill = clarity) ) +
+  geom_bar( alpha = 1/ 5, position = "identity")
+
+ggplot( data = diamonds, mapping = aes( x = cut, color = clarity) ) +
+  geom_bar( fill = NA, position = "identity")
+
+ggplot( data = diamonds) +
+  geom_bar( mapping = aes( x = cut, fill = clarity), position = "fill" )
+
+##this can display side by side bars - useful info..
+ggplot( data = diamonds) +
+  geom_bar( mapping = aes( x = cut, fill = clarity), position = "dodge" )
+
+###position =jitter to avoid overlapping of points.
+ggplot( data = mpg) +
+  geom_point( mapping = aes( x = displ, y = hwy), position = "jitter" )
+
+##exercises
+ggplot( data = mpg, mapping = aes( x = cty, y = hwy)) +
+  geom_point()
+
+###box plots
+ggplot( data = mpg, mapping = aes( x = class, y = hwy)) +
+  geom_boxplot()
+##improvise above plot
+ggplot( data = mpg, mapping = aes( x = class, y = hwy)) +
+  geom_boxplot() +
+  coord_flip()
