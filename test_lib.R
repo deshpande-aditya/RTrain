@@ -37,10 +37,10 @@ ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy, shape = cla
 ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy), color = "blue")
 #solved Q1 - BRACKET WAS MISPLACED HENCE COLOR WAS NOT BLUE.
 ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy), color = "blue" )
+ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy)) + facet_wrap( ~ class, nrow = 2)
 
 
 #facets
-ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy)) + facet_wrap( ~ class, nrow = 2)
 
 ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy)) + facet_grid( drv ~ cyl)
 ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy)) + facet_grid( . ~ cyl)
@@ -53,3 +53,75 @@ ggplot( data = mpg) + geom_point( mapping = aes( x = displ, y = hwy))
 ggplot( data = mpg) + geom_smooth( mapping = aes( x = displ, y = hwy))
 
 ggplot( data = mpg) + geom_smooth( mapping = aes( x = displ, y = hwy, linetype = drv))
+
+
+ggplot( data = mpg) +
+  geom_smooth( mapping = aes( x = displ, y = hwy, group = drv))
+
+
+ggplot( data = mpg) + geom_smooth( mapping = aes( x = displ, y = hwy, color = drv), show.legend = FALSE )
+
+
+#To display multiple geoms in the same plot, add multiple geom functions to ggplot():
+ggplot( data = mpg) +
+  geom_point( mapping = aes( x = displ, y = hwy)) +
+  geom_smooth( mapping = aes( x = displ, y = hwy))
+
+#same as above code - global mapping example.
+ggplot( data = mpg, mapping = aes( x = displ, y = hwy)) +
+  geom_point() + geom_smooth()
+
+#specify local options for geom_point in this case.
+ggplot( data = mpg, mapping = aes( x = displ, y = hwy)) +
+  geom_point( mapping = aes( color = class)) +
+  geom_smooth()
+
+#overriding global options by giving specific local options.
+ggplot( data = mpg, mapping = aes( x = displ, y = hwy)) +
+  geom_point( mapping = aes( color = class)) +
+  geom_smooth( data = filter( mpg, class == "subcompact"), se = FALSE )
+
+#try using geom_line/
+ggplot( data = mpg) +
+  geom_line( mapping = aes( x = displ, y = hwy))
+
+ggplot( data = mpg, mapping = aes( x = displ, y = hwy, color = drv) ) +
+  geom_point() +
+  geom_smooth( se = FALSE)
+
+#SE displays CI around the line.
+ggplot( data = mpg, mapping = aes( x = displ, y = hwy, color = drv) ) +
+  geom_point() +
+  geom_smooth()
+
+#WHY TO USE SHOW.LEGEND
+ggplot( data = mpg) +
+  geom_smooth( mapping = aes( x = displ, y = hwy, color = drv), show.legend = FALSE )
+
+#not using show.legend
+ggplot( data = mpg) +
+  geom_smooth( mapping = aes( x = displ, y = hwy, color = drv) )
+
+
+##BAR CHARTS##
+
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x=cut))
+#use stat_count instead of geom_bar for above plot.
+
+ggplot(data = diamonds) +
+  stat_count(mapping = aes(x=cut))
+
+###demonstrate stat=identity.
+demo <- tribble( ~ a, ~ b,
+                 "bar_1", 20,
+                 "bar_2", 30,
+                 "bar_3", 40
+              )
+ggplot( data = demo) +
+  geom_bar( mapping = aes( x = a, y = b), stat = "identity" )
+
+#using stat_summary.
+ggplot( data = diamonds) +
+  stat_summary( mapping = aes( x = cut, y = depth), fun.ymin = min, fun.ymax = max, fun.y = median )
+
